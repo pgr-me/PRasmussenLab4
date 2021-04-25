@@ -15,11 +15,9 @@ from pathlib import (
     PureWindowsPath,
     WindowsPath,
 )
-from time import time_ns
-from typing import Union
+
 
 # Local imports
-from lab4.symbols import Symbols
 
 
 def header_helper(paths, kind="Input"):

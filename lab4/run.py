@@ -10,10 +10,10 @@ from pathlib import Path
 from time import time_ns
 
 # local imports
-from lab4.file_io import make_header
-from lab4.symbols import Symbols
+from lab4.misc.file_io import make_header
+from lab4.misc.symbols import Symbols
 from lab4.tests import tests
-from lab4.utils import remove_cruft
+from lab4.misc.utils import remove_cruft
 
 
 def run(
