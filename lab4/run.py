@@ -10,18 +10,10 @@ from pathlib import Path
 from time import time_ns
 
 # local imports
-from lab3.file_io import make_input_polynomial_string, make_header
-from lab3.parsers.parse_polynomial_input import parse_polynomial_input
-from lab3.parsers.parse_evaluation_input import parse_evaluation_input
-from lab3.polynomial_operations import polynomial_operations
-from lab3.evaluators.combine import (
-    add_expressions,
-    concatenate_output_expressions,
-    multiply_expressions,
-)
-from lab3.symbols import Symbols
-from lab3.tests import tests
-from lab3.utils import remove_cruft
+from lab4.file_io import make_header
+from lab4.symbols import Symbols
+from lab4.tests import tests
+from lab4.utils import remove_cruft
 
 
 def run(

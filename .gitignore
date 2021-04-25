@@ -1,5 +1,10 @@
 # Peter Rasmussen, Lab 4
 
+# Cruft
+.DS_Store
+.idea/
+*~
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -19,8 +19,7 @@ from time import time_ns
 from typing import Union
 
 # Local imports
-from lab3.lists.polynomial_list import PolynomialList
-from lab3.symbols import Symbols
+from lab4.symbols import Symbols
 
 
 def header_helper(paths, kind="Input"):
@@ -82,24 +81,6 @@ def make_header(header: str, in_paths, out_paths, operation_message):
         "\n"
     )
     return header
-
-
-def make_input_polynomial_string(polynomial_li: PolynomialList, symbols: Symbols):
-    """
-    Render string of polynomial input expression definitions.
-    :param output_content: Output content to add to
-    :param polynomial_li: Polynomial list
-    :param symbols:
-    :return: None
-    """
-    output_content = f"{98 * '@'}"
-    output_content += "\nPolynomial input expression definitions\n"
-    for node_name in symbols.node_names:
-        if node_name in polynomial_li.names:
-            input_polynomial_expression = polynomial_li.get_node(node_name).echoed_input
-            output_content += f"{node_name} = {input_polynomial_expression}\n"
-
-    return output_content
 
 
 def write_footer(file: TextIOWrapper, footer_di: dict):

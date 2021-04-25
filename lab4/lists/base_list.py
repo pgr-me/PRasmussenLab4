@@ -6,6 +6,8 @@ value lists.
 """
 
 
+# Standard library imports
+import random
 from typing import Union
 
 
@@ -14,12 +16,16 @@ class ListError(Exception):
     pass
 
 
-class SimpleList:
+class BaseList:
     """Array-based list implementation."""
 
-    def __init__(self, max_size: int):
+    def __init__(self, max_size: int, dup_frac=0):
         """Initialize an empty list"""
         self.max_size = max_size
+        if dup_frac < 0 or dup_frac > 1:
+            raise ValueError("dup_frac must be between 0 and 1 inclusive.")
+        self.dup_frac = dup_frac
+        self.n_dups = 0
         self.array: list = max_size * [None]
         self.length = 0
         self.max_index: Union[int, None] = None
@@ -85,7 +91,7 @@ class SimpleList:
         Make a deep copy of the list.
         :return: Deep copy of list
         """
-        li = SimpleList(self.max_size)
+        li = BaseList(self.max_size)
         for item in self:
             li.append(item)
         return li
@@ -119,6 +125,35 @@ class SimpleList:
             self.n_dups = round(self.length * self.dup_frac)
 
         return item
+
+    def duplicate(self):
+        """
+        Create a list with duplicate items.
+        :param: Indicate post-sort: in-order, randomly-ordered, or reverse-ordered
+        :return: Duplicated list
+        """
+        self.assert_list_not_empty("duplicate")
+
+        list_index = 0
+        dups = self.n_dups
+        dup_li = BaseList(dups)
+        orig_len = self.length
+        while list_index < dups:
+            rand_index = round(random.random() * (orig_len - 1))
+            rand_item = self[rand_index]
+            dup_li.append(rand_item)
+            list_index += 1
+
+        for dup_item in dup_li:
+
+            while True:
+                rand_index = round(random.random() * (orig_len - 1))
+                item = self[rand_index]
+                if item not in dup_li:
+                    self[rand_index] = dup_item
+                    break
+
+        return self
 
     def get(self, index):
         """

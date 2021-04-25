@@ -6,13 +6,15 @@ value lists.
 """
 
 # Standard library imports
+from __future__ import annotations
 import random
 
 # Local imports
-from lab4.lists.simple_list import ListError, SimpleList
+from lab4.lists.base_list import ListError, BaseList
+from lab4.sorts.heap_sort import heap_sort
 
 
-class OrderedList(SimpleList):
+class OrderedList(BaseList):
     """
     List whose contents can be in-ordered, reverse-ordered, or randomly ordered.
     User can specify desired number of elements that are duplicates.
@@ -20,56 +22,15 @@ class OrderedList(SimpleList):
 
     def __init__(self, max_size: int, dup_frac=0):
         """Initialize an empty list"""
-        super().__init__(max_size)
-        if dup_frac < 0 or dup_frac > 1:
-            raise ValueError("dup_frac must be between 0 and 1 inclusive.")
-        self.dup_frac = dup_frac
-        self.n_dups = 0
+        super().__init__(max_size, dup_frac)
 
-    def duplicate(self, post_sort: str = "asc_order"):
-        """
-        Create a list with duplicate items.
-        :param: Indicate post-sort: in-order, randomly-ordered, or reverse-ordered
-        :return: Duplicated list
-        """
-        self.assert_list_not_empty("duplicate")
-        if post_sort not in ("asc_order", "ran_order", "rev_order"):
-            raise ListError(f"Post-sort must be one of 'asc_order', 'ran_order', or 'rev_order'")
-        list_index = 0
-        dups = self.n_dups
-        dup_li = OrderedList(dups)
-        orig_len = self.length
-        while list_index < dups:
-            rand_index = round(random.random() * (orig_len - 1))
-            rand_item = self[rand_index]
-            dup_li.append(rand_item)
-            list_index += 1
-
-        for dup_item in dup_li:
-
-            while True:
-                rand_index = round(random.random() * (orig_len - 1))
-                item = self[rand_index]
-                if item not in dup_li:
-                    self[rand_index] = dup_item
-                    break
-
-        if post_sort in ["asc_order", "rev_order"]:
-            heap_sort(self)
-            if post_sort == "rev_order":
-                self.reverse()
-        else:
-            self.randomize()
-
-        return self
-
-    def randomize(self):
+    def randomize(self) -> OrderedList:
         """
         Randomize list contents.
         :return: Randomized list
         """
 
-        temp_li = List(self.max_size)
+        temp_li = OrderedList(self.max_size)
         while not self.is_empty():
             ix = round(random.random() * (self.length - 1))
             item = self.delete(ix)
@@ -80,7 +41,7 @@ class OrderedList(SimpleList):
 
         return self
 
-    def reverse(self):
+    def reverse(self) -> OrderedList:
         """
         Reverse order of list.
         :return: Reversed list
@@ -91,4 +52,13 @@ class OrderedList(SimpleList):
             ix2 = length - ix1 - 1
             self[ix1], self[ix2] = self[ix2], self[ix1]
             ix1 += 1
+        return self
+
+    def sort(self) -> OrderedList:
+        """
+        Sort list in-order.
+        :return: In-order list
+        """
+        heap_sort(self)
+        print(type(self))
         return self
