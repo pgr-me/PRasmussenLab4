@@ -71,7 +71,13 @@ parser.add_argument(
 parser.add_argument(
     "--datamaker_out_path", "-do", type=Path, help="Datamaker output directory path"
 )
-
+parser.add_argument(
+    "--file_header",
+    "-f",
+    default="Peter Rasmussen, Lab 3",
+    type=str,
+    help="Specify file header",
+)
 args = parser.parse_args()
 
 # Execute prefix-to-postfix conversion run function
@@ -79,5 +85,6 @@ run(
     args.in_path,
     args.out_path,
     args.test_out_path,
-    args.datamaker_out_path
+    args.datamaker_out_path,
+    args.file_header
 )

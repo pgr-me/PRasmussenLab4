@@ -13,15 +13,23 @@ from typing import Union
 # Local imports
 from lab4.lists.ordered_list import OrderedList
 
-class DataMaker:
 
-    def __init__(self, size: int):
+class DataMaker:
+    """Makes in-order (asc), reverse-ordered (rev), and randomly ordered (ran) datasets."""
+    def __init__(self, size: int, dup_frac):
+        """
+        Initialize size and duplicate fraction parameters and list variables.
+        :param size:
+        :param dup_frac:
+        """
         self.size = size
+        self.dup_frac = dup_frac
 
         # Initialize list variables
-        self.asc_order_list: Union[OrderedList, None] = None
-        self.rev_order_list: Union[OrderedList, None] = None
-        self.ran_order_list: Union[OrderedList, None] = None
+        self.asc: Union[OrderedList, None] = None
+        self.rev: Union[OrderedList, None] = None
+        self.ran: Union[OrderedList, None] = None
+        self.dup: Union[OrderedList, None] = None
 
     def __repr__(self):
         return self.__str__()
@@ -34,28 +42,36 @@ class DataMaker:
         Make one in-ordered, reverse-ordered, and randomly ordered list each.
         :return: None
         """
-        self.asc_order_list = self.make_asc_order_list(self.size)
-        self.rev_order_list = self.asc_order_list.copy()
-        self.rev_order_list = self.make_rev_order_list(self.rev_order_list)
-        self.ran_order_list = self.asc_order_list.copy()
-        self.ran_order_list = self.make_ran_order_list(self.ran_order_list)
+        self.asc = self.make_asc_order_list(self.size)
+
+        self.rev = self.make_asc_order_list(self.size)
+        self.rev.reverse()
+
+        self.ran = self.make_asc_order_list(self.size)
+        self.ran.randomize()
+
+        self.dup = self.make_asc_order_list(self.size, dup_frac=self.dup_frac)
+        self.dup.randomize()
 
     @staticmethod
-    def make_asc_order_list(size: int) -> OrderedList:
+    def make_asc_order_list(size: int, dup_frac: float = 0) -> OrderedList:
         """
         Make asc_order list.
         :param size: Size of list to create
+        :param dup_frac: Fraction of duplicate elements
         :return: Ordered list of elements from 1 to size
         """
-        li = OrderedList(size)
+        li = OrderedList(size, dup_frac=dup_frac)
         counter = 0
         while counter < size:
             li.append(counter + 1)
             counter += 1
+        if dup_frac > 0:
+            li.duplicate()
         return li
 
     @staticmethod
-    def make_ran_order_list(li: OrderedList) -> list:
+    def make_ran_order_list(li: OrderedList) -> OrderedList:
         """
         Make randomly ordered list.
         :param li: OrderedList to randomize
@@ -71,5 +87,6 @@ class DataMaker:
         :param li: OrderedList to reverse order for
         :return: Reverse-ordered list
         """
+        print(type(li))
         li.reverse()
         return li
