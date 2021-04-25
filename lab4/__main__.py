@@ -54,35 +54,30 @@ import argparse
 from pathlib import Path
 
 # local imports
-from lab3.run import run
+from lab4.run import run
 
 
 # Parse arguments
-arg_parser = argparse.ArgumentParser()
-arg_parser.add_argument(
-    "--evaluation_in_file", "-e", type=Path, help="Evaluation input file path"
+parser = argparse.ArgumentParser(prog="lab4 scratch")
+parser.add_argument(
+    "--in_path", "-i", type=Path, help="Input file or directory path"
 )
-arg_parser.add_argument(
-    "--polynomial_in_file", "-p", type=Path, help="Polynomial input file path"
+parser.add_argument(
+    "--out_path", "-o", type=Path, help="Output file or directory path"
 )
-arg_parser.add_argument("--out_file", "-o", type=Path, help="Output file path")
-arg_parser.add_argument(
-    "--file_header",
-    "-f",
-    default="Peter Rasmussen, Lab 3",
-    type=str,
-    help="Specify file header",
+parser.add_argument(
+    "--test_out_path", "-to", type=Path, help="Test output file path"
 )
-arg_parser.add_argument(
-    "--test", "-t", type=bool, default=False, help="True to run tests"
+parser.add_argument(
+    "--datamaker_out_path", "-do", type=Path, help="Datamaker output directory path"
 )
-args = arg_parser.parse_args()
+
+args = parser.parse_args()
 
 # Execute prefix-to-postfix conversion run function
 run(
-    args.evaluation_in_file,
-    args.polynomial_in_file,
-    args.out_file,
-    args.file_header,
-    args.test,
+    args.in_path,
+    args.out_path,
+    args.test_out_path,
+    args.datamaker_out_path
 )
