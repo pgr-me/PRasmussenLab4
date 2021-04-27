@@ -23,6 +23,7 @@ class MergeSort:
     def __init__(self, unsorted_li: list, way: Union[int, str] = 2):
         """
         Initialize list and n-way / natural merge variables.
+        :param unsorted_li: List to be sorted
         :param way: Order if straight merge or specification of natural merge
         """
         self.unsorted_li = unsorted_li
@@ -40,7 +41,7 @@ class MergeSort:
         self.partitioned_li: Union[list, None] = None
         self.sorted_li: Union[list, None] = None
 
-    def sort(self):
+    def sort(self) -> list:
         """
         Sort the list using either 2-way, 3-way, 4-way straight merge or natural merge.
         :return: Sorted list
@@ -51,6 +52,7 @@ class MergeSort:
             self.partitioned_li = self.partition(deepcopy(self.unsorted_li))
         self.sorted_li = self.merge_all(deepcopy(self.partitioned_li))
 
+        return self.sorted_li
 
     def merge_all(self, li: list) -> list:
         """
@@ -95,7 +97,7 @@ class MergeSort:
     def natural_partition(self, unsorted_li: list, partitioned_li: Union[list, None] = None):
         """
         Recursively execute natural partitioning.
-        unsorted_li: List to perform natural partition on
+        temp_li: List to perform natural partition on
         """
         if partitioned_li is None:
             partitioned_li = []

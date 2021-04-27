@@ -8,21 +8,25 @@ file to symbolically combine and then evaluate polynomial expressions.
 # standard library imports
 from copy import deepcopy
 from pathlib import Path
+import sys
 from time import time_ns
 
 # local imports
 from lab4.datamaker.make_data import make_data
 from lab4.parsers.read_datasets import read
-from lab4.sorts.heap_sort import HeapSort
-from lab4.sorts.merge_sort import MergeSort
+from lab4.sorts import HeapSort
+from lab4.sorts import MergeSort
+
+
+sys.setrecursionlimit(12000)
 
 
 def run(
-    in_path: Path,
-    out_path: Path,
-    test_out_path: Path,
-    datamaker_out_path: Path,
-    file_header: str
+        in_path: Path,
+        out_path: Path,
+        test_out_path: Path,
+        datamaker_out_path: Path,
+        file_header: str
 ):
     """
     Symbolically combine polynomials and then evaluate for various evaluation sets.
@@ -48,23 +52,20 @@ def run(
             raise ValueError("No files were read.")
         output_dict = {}
         for key, dataset in datasets.items():
-            d1 = {"unsorted_data": dataset}
+            dataset_dict = {"unsorted_data": dataset}
             for sort_name, sorter_di in sorters.items():
-                sort_class, kwargs = sorter_di["sort_class"], sorter_di["kwargs"]
-                sort_obj = sort_class(deepcopy(dataset), **kwargs)
-                sort_obj.sort()
+                # Extract dictionary arguments, instantiate sorter, and sort list
+                sorter_class, kwargs = sorter_di["sort_class"], sorter_di["kwargs"]
+                sorter = sorter_class(deepcopy(dataset), **kwargs)
+                sorter.sort()
 
-                sorter = d2[](deepcopy(dataset))
-                merge_sort.sort()
-                di[way] = {"sorted_data": merge_sort.sorted_li,
-                           "n_comparisons": merge_sort.n_comparisons,
-                           "n_exchanges": merge_sort.n_exchanges,
-                           "n_partition_calls": merge_sort.n_partition_calls}
-
-
-
-
+                # Build temp dictionary and add outputs
+                dataset_dict[sort_name] = {"sorted_data": sorter.sorted_li,
+                                           "n_comparisons": sorter.n_comparisons,
+                                           "n_exchanges": sorter.n_exchanges,
+                                           "n_partition_calls": sorter.n_partition_calls}
+                1
+            output_dict[key] = dataset_dict
             program_stop = time_ns()
-            elapsed = program_start - program_stop
-
-
+            program_elapsed = program_start - program_stop
+            output_dict["program_elapsed"] = program_elapsed

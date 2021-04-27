@@ -38,6 +38,7 @@ class HeapSort:
             self.n_items_to_sort = len(unsorted_li)
         self.n_comparisons = 0
         self.n_exchanges = 0
+        self.n_partition_calls = 0
         self.start: int = time_ns()
         self.stop: Union[int, None] = None
         self.elapsed: Union[int, None] = None
@@ -108,7 +109,9 @@ class HeapSort:
         # Stop the timer and compute total runtime
         self.stop_timer()
 
-        return temp_li
+        self.sorted_li = temp_li
+
+        return self.sorted_li
 
     def stop_timer(self):
         """
