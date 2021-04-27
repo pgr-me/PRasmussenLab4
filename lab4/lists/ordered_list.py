@@ -10,12 +10,12 @@ from __future__ import annotations
 import random
 
 # Local imports
-from lab4.lists.base_list import ListError, BaseList
-from lab4.sorts.heap_sort import HeapSort
-from lab4.sorts.merge_sort import MergeSort
+from lab4.lists.base_list import BaseList
+
 
 class OrderedListError(Exception):
     pass
+
 
 class OrderedList(BaseList):
     """
@@ -65,17 +65,4 @@ class OrderedList(BaseList):
             ix2 = length - ix1 - 1
             self[ix1], self[ix2] = self[ix2], self[ix1]
             ix1 += 1
-        return self
-
-    def sort(self, sort="heap_sort") -> OrderedList:
-        """
-        Sort list in-order.
-        :return: In-order list
-        """
-        if sort == "heap_sort":
-            heap_sort(self)
-
-        else:
-            raise OrderedListError(f"{sort} not among accepted sorts.")
-
         return self
