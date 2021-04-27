@@ -51,7 +51,7 @@ class MergeSort:
         else:
             self.partitioned_li = self.partition(deepcopy(self.unsorted_li))
         self.sorted_li = self.merge_all(deepcopy(self.partitioned_li))
-
+        self.stop_timer()
         return self.sorted_li
 
     def merge_all(self, li: list) -> list:

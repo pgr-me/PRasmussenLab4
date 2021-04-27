@@ -84,7 +84,6 @@ args = parser.parse_args()
 run(
     args.in_path,
     args.out_path,
-    args.test_out_path,
     args.datamaker_out_path,
     args.file_header
 )

@@ -1,4 +1,4 @@
-"""Peter Rasmussen, Lab 4, parsers/read_input.py
+"""Peter Rasmussen, Lab 4, parsers/file_io.py
 
 This module reads an input file and organizes its contents as integers into an OrderedList.
 """
