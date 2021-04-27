@@ -5,6 +5,7 @@ This module implements a recursive version of the heapify and heap sort methods.
 """
 
 # Standard library imports
+from time import time_ns
 from typing import Union
 
 
@@ -14,9 +15,13 @@ class HeapSortError(Exception):
 
 class HeapSort:
     """Recursive implementation of the heapify and heap sort methods."""
+
     def __init__(self):
         self.n_comparisons = 0
         self.n_exchanges = 0
+        self.start: int = time_ns()
+        self.stop: Union[int, None] = None
+        self.elapsed: Union[int, None] = None
 
     def heapify(self, li: list, parent_ix: int, n_items_to_sort: Union[int, None]):
         """
@@ -79,3 +84,11 @@ class HeapSort:
             self.n_exchanges += 1
             li[i], li[0] = li[0], li[i]  # swap
             self.heapify(li, 0, i)
+
+    def stop(self):
+        """
+        Stop timer and compute elapsed time
+        :return: None
+        """
+        self.stop = time_ns()
+        self.elapsed = self.stop - self.start

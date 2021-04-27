@@ -7,6 +7,7 @@ and the natural merge.
 
 # Standard library imports
 from typing import Union
+from time import time_ns
 
 
 class MergeSortError(Exception):
@@ -32,6 +33,9 @@ class MergeSort:
         self.n_exchanges = 0
         self.n_partition_calls = 0
         self.partitioned_li = []
+        self.start: int = time_ns()
+        self.stop: Union[int, None] = None
+        self.elapsed: Union[int, None] = None
 
     def merge_pass(self, l: list, ways: int = 2) -> list:
         """
@@ -261,3 +265,11 @@ class MergeSort:
             self.n_comparisons += 1
 
         return li_merge + l1 + l2
+
+    def stop(self):
+        """
+        Stop timer and compute elapsed time
+        :return: None
+        """
+        self.stop = time_ns()
+        self.elapsed = self.stop - self.start
