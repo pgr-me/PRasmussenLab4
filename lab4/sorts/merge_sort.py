@@ -96,6 +96,7 @@ class MergeSort:
                 # Otherwise, create new sublist in li_partitions and append to that
                 else:
                     li_partitions.append([i])
+            self.n_partition_calls += 1
             return self.natural_partition(l)
 
     def partition(self, l: list, partitioned_l: Union[list, None] = None) -> list:
