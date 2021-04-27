@@ -37,7 +37,7 @@ Example output file:
     a2b3c5d0e1				-64772
 
 Upon execution, the user must provide the polynomial input file path (polynomial_in_file),
-evaluation input file path (evaluation_in_file), and output file path (out_file). Optionally, the
+evaluation input file path (in_file), and output file path (out_file). Optionally, the
 user may specify whether to modify the default header and whether to run the tests module.
 
 Example execution:

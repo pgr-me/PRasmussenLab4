@@ -1,6 +1,7 @@
-"""Peter Rasmussen, Lab 4, heap_sort.py
+"""Peter Rasmussen, Lab 4, sorts/merge_sort.py
 
-This module implements a recursive version of the heap sort.
+This module implements recursive versions of the two-way, three-way, and four-way straight merges
+and the natural merge.
 
 """
 
@@ -31,25 +32,6 @@ class MergeSort:
         self.n_exchanges = 0
         self.n_partition_calls = 0
         self.partitioned_li = []
-
-    def partition(self, l: list, partitioned_l: Union[list, None] = None) -> list:
-        """
-        Recursively partition a list.
-        :param l: List to partition
-        :param partitioned_l: List to add partitions to
-        :return: Fully-partitioned partitioned list
-        """
-        if partitioned_l is None:
-            partitioned_l = []
-        if len(l) == 0:
-            return partitioned_l
-
-        if len(l) == 1:
-            return partitioned_l + [l]
-        else:
-            partitioned_l.append([l.pop(0)])
-            self.n_partition_calls += 1
-            return self.partition(l, partitioned_l)
 
     def merge_pass(self, l: list, ways: int = 2) -> list:
         """
@@ -92,6 +74,48 @@ class MergeSort:
         if len(l) == 1:
             return l[0]
         return self.merge_all(self.merge_pass(l, ways=ways))
+
+    def natural_partition(self, l: list, li_partitions: Union[list, None] = None):
+        """
+        Recursively execute natural partitioning.
+        l: List to perform natural partition on
+        """
+        if li_partitions is None:
+            li_partitions = []
+        if len(l) == 0:
+            return li_partitions
+        else:
+            i = l.pop(0)
+            # Append first item to li_partitions if li_partitions is empty
+            if len(li_partitions) == 0:
+                li_partitions.append([i])
+            else:
+                # If i >= to its predecessor, append to last sublist of li_partitions
+                if i >= li_partitions[-1][-1]:
+                    li_partitions[-1].append(i)
+                # Otherwise, create new sublist in li_partitions and append to that
+                else:
+                    li_partitions.append([i])
+            return self.natural_partition(l)
+
+    def partition(self, l: list, partitioned_l: Union[list, None] = None) -> list:
+        """
+        Recursively partition a list.
+        :param l: List to partition
+        :param partitioned_l: List to add partitions to
+        :return: Fully-partitioned partitioned list
+        """
+        if partitioned_l is None:
+            partitioned_l = []
+        if len(l) == 0:
+            return partitioned_l
+
+        if len(l) == 1:
+            return partitioned_l + [l]
+        else:
+            partitioned_l.append([l.pop(0)])
+            self.n_partition_calls += 1
+            return self.partition(l, partitioned_l)
 
     def four_way_merge(self, l1: list, l2: list, l3: list, l4: list) -> list:
         """

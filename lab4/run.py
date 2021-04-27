@@ -11,10 +11,7 @@ from time import time_ns
 
 # local imports
 from lab4.datamaker.make_data import make_data
-from lab4.misc.file_io import make_header
-from lab4.misc.symbols import Symbols
-from lab4.tests import tests
-from lab4.misc.utils import remove_cruft
+from lab4.parsers.read_datasets import read
 
 
 def run(
@@ -39,9 +36,16 @@ def run(
 
     if datamaker_out_path is not None:
         make_data(datamaker_out_path)
-        pass
 
     else:
-        pass
+        datasets = read(in_path)
+        if len(datasets) == 0:
+            raise ValueError("No files were read.")
+        for key, dataset in datasets.items():
+            start = time_ns()
+
+            stop = time_ns()
+            elapsed = start - stop
 
 
+            1
