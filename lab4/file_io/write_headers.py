@@ -1,4 +1,4 @@
-"""Peter Rasmussen, Lab 3, file_io.py
+"""Peter Rasmussen, Lab 3, write_headers.py
 
 This module provides file IO functions.
 

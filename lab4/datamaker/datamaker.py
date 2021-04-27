@@ -11,7 +11,7 @@ the fraction of duplicates present in each output dataset.
 from typing import Union
 
 # Local imports
-from lab4.lists.ordered_list import OrderedList
+from lab4.lists import OrderedList
 
 
 class DataMaker:

@@ -1,4 +1,4 @@
-"""Peter Rasmussen, Lab 4, parsers/read_datasets.py
+"""Peter Rasmussen, Lab 4, parsers/read_input.py
 
 This module reads an input file and organizes its contents as integers into an OrderedList.
 """
@@ -41,7 +41,7 @@ def read_datasets(in_dir: Union[str, Path]) -> dict:
     return d
 
 
-def read(in_path: Union[Path, str]) -> dict:
+def read_input(in_path: Union[Path, str]) -> dict:
     """
     Read a file or directory and return a dictionary of one or more datasets.
     :param in_path: Input file or directory path

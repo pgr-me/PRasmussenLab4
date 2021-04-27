@@ -13,7 +13,7 @@ from time import time_ns
 
 # local imports
 from lab4.datamaker.make_data import make_data
-from lab4.parsers.read_datasets import read
+from lab4.file_io.read_input import read_input
 from lab4.sorts import HeapSort
 from lab4.sorts import MergeSort
 
@@ -47,13 +47,18 @@ def run(
                    "three_way_merge": {"sort_class": MergeSort, "kwargs": {"way": 3}},
                    "four_way_merge": {"sort_class": MergeSort, "kwargs": {"way": 4}},
                    }
-        datasets = read(in_path)
+        datasets = read_input(in_path)
         if len(datasets) == 0:
             raise ValueError("No files were read.")
-        output_dict = {}
+        output_dict = {"datasets": {}}
+
+        # Iterate over each dataset
         for key, dataset in datasets.items():
             dataset_dict = {"unsorted_data": dataset}
+
+            # Iterate over each sorter (e.g., 2-way merge sort, natural merge, etc.)
             for sort_name, sorter_di in sorters.items():
+
                 # Extract dictionary arguments, instantiate sorter, and sort list
                 sorter_class, kwargs = sorter_di["sort_class"], sorter_di["kwargs"]
                 sorter = sorter_class(deepcopy(dataset), **kwargs)
@@ -64,8 +69,14 @@ def run(
                                            "n_comparisons": sorter.n_comparisons,
                                            "n_exchanges": sorter.n_exchanges,
                                            "n_partition_calls": sorter.n_partition_calls}
-                1
-            output_dict[key] = dataset_dict
-            program_stop = time_ns()
-            program_elapsed = program_start - program_stop
-            output_dict["program_elapsed"] = program_elapsed
+
+            # Populate the output dictionary using the dataset-level dictionary
+            output_dict["datasets"][key] = dataset_dict
+            output_dict["datasets"]["out_path"]
+
+        program_stop = time_ns()
+        program_elapsed = program_start - program_stop
+        output_dict["program_elapsed"] = program_elapsed
+
+        # Write outputs to CSV
+        1
