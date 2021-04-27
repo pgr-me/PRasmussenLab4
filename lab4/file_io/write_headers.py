@@ -61,7 +61,6 @@ def header_helper(paths, kind="Input"):
 def make_header(header: str, in_paths, out_paths, operation_message):
     """
     Write the header of a prefix-to-postfix conversion file.
-    :param file: File-like object to write to
     :param header: Single-line header string
     :param in_paths: Path to input file
     :param out_paths: Path to output file

@@ -35,6 +35,7 @@ class MergeSort:
         self.n_comparisons = 0
         self.n_exchanges = 0
         self.n_partition_calls = 0
+        self.n = len(unsorted_li)
         self.start: int = time_ns()
         self.stop: Union[int, None] = None
         self.elapsed: Union[int, None] = None

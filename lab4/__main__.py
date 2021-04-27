@@ -74,7 +74,7 @@ parser.add_argument(
 parser.add_argument(
     "--file_header",
     "-f",
-    default="Peter Rasmussen, Lab 3",
+    default="Peter Rasmussen, Lab 4",
     type=str,
     help="Specify file header",
 )
