@@ -25,7 +25,7 @@ class HeapSort:
 
     def heapify(self, li: list, parent_ix: int, n_items_to_sort: Union[int, None]):
         """
-        Heapify an l.
+        Heapify an unsorted_li.
         :param li: Array to heapify
         :param parent_ix: Parent (i.e., root) index of subtree
         :param n_items_to_sort: Number of items, beginning from root, to sort
@@ -58,7 +58,7 @@ class HeapSort:
             # Heapify at the location from which we swapped the largest item in the subtree
             self.heapify(li, max_val_ix, n_items_to_sort)
 
-    def heap_sort(self, li, n_items_to_sort=None):
+    def sort(self, l, n_items_to_sort=None):
         """
         Build a max heap and then sort it.
 
@@ -66,26 +66,31 @@ class HeapSort:
         Accessed 23 April 2021.
         Original function, referenced above, was modified to make the code easier to read.
         """
-        # Set n_items_to_sort to length of l if not specified
+        # Set n_items_to_sort to length of unsorted_li if not specified
         if n_items_to_sort is None:
-            n_items_to_sort = len(li)
+            n_items_to_sort = len(l)
 
-        # Make sure n_items_to_sort is not greater than length of l
-        elif n_items_to_sort > len(li):
+        # Make sure n_items_to_sort is not greater than length of unsorted_li
+        elif n_items_to_sort > len(l):
             raise HeapSortError(
                 "n_items_to_sort {n_items_to_sort} shouldn't be greater than list length.")
 
         # Build a max heap
         for parent_ix in range(n_items_to_sort // 2 - 1, -1, -1):
-            self.heapify(li, parent_ix, n_items_to_sort)
+            self.heapify(l, parent_ix, n_items_to_sort)
 
         # One by one extract elements
         for i in range(n_items_to_sort - 1, 0, -1):
             self.n_exchanges += 1
-            li[i], li[0] = li[0], li[i]  # swap
-            self.heapify(li, 0, i)
+            l[i], l[0] = l[0], l[i]  # swap
+            self.heapify(l, 0, i)
 
-    def stop(self):
+        # Stop the timer and compute total runtime
+        self.stop_timer()
+
+        return l
+
+    def stop_timer(self):
         """
         Stop timer and compute elapsed time
         :return: None

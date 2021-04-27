@@ -6,6 +6,7 @@ and the natural merge.
 """
 
 # Standard library imports
+from copy import deepcopy
 from typing import Union
 from time import time_ns
 
@@ -19,108 +20,121 @@ class MergeSort:
     This class recursively partitions and performs 2-way, 3-way, and 4-way merges.
     """
 
-    def __init__(self, ways: int = 2):
+    def __init__(self, unsorted_li: list, way: Union[int, str] = 2):
         """
-        Initialize list and n-ways variables.
-        :param ways: Order of the merge
+        Initialize list and n-way / natural merge variables.
+        :param way: Order if straight merge or specification of natural merge
         """
-        self.ways = ways
-        if self.ways not in [2, 3, 4]:
+        self.unsorted_li = unsorted_li
+        self.way = way
+        if self.way not in ["natural", 2, 3, 4]:
             raise MergeSortError(
-                "This implementation is only available for 2-way, 3-way, and 4-way merges")
+                "This implementation only available for natural, 2-way, 3-way, and 4-way merges")
 
         self.n_comparisons = 0
         self.n_exchanges = 0
         self.n_partition_calls = 0
-        self.partitioned_li = []
         self.start: int = time_ns()
         self.stop: Union[int, None] = None
         self.elapsed: Union[int, None] = None
+        self.partitioned_li: Union[list, None] = None
+        self.sorted_li: Union[list, None] = None
 
-    def merge_pass(self, l: list, ways: int = 2) -> list:
+    def sort(self):
         """
-        Make one merge pass of adjacent sublist pairs, triples, or quadruples.
-        :param l: Partitioned list to merge
-        :param ways: Two-way, three-way, or four-way merge
-        :return: Partially- or fully-merged list
+        Sort the list using either 2-way, 3-way, 4-way straight merge or natural merge.
+        :return: Sorted list
         """
-        sorted_l = []
-        while len(l) > 0:
-            if len(l) == 1:
-                self.n_exchanges += 1
-                l1 = l.pop(0)
-                sorted_l.append(l1)
-            else:
-                l1 = l.pop(0)
-                l2 = l.pop(0)
-                if (ways == 2) or (len(l) == 0):
-                    self.n_exchanges += 2
-                    sorted_l.append(self.two_way_merge(l1, l2))
-                else:
-                    l3 = l.pop(0)
-                    if (ways == 3) or (len(l) == 0):
-                        self.n_exchanges += 3
-                        sorted_l.append(self.three_way_merge(l1, l2, l3))
-                    else:
-                        self.n_exchanges += 4
-                        l4 = l.pop(0)
-                        sorted_l.append(self.four_way_merge(l1, l2, l3, l4))
+        if self.way == "natural":
+            self.partitioned_li = self.natural_partition(deepcopy(self.unsorted_li))
+        else:
+            self.partitioned_li = self.partition(deepcopy(self.unsorted_li))
+        self.sorted_li = self.merge_all(deepcopy(self.partitioned_li))
 
-        return sorted_l
 
-    def merge_all(self, l: list, ways: int = 2) -> list:
+    def merge_all(self, li: list) -> list:
         """
         Recursively merge partitions to obtain a sorted list.
-        :param l: Partitioned list to merge
-        :param ways: Two-way, three-way, or four-way merge
+        :param li: Partitioned list to merge
         :return: Sorted, merged list
         """
-        if len(l) == 1:
-            return l[0]
-        return self.merge_all(self.merge_pass(l, ways=ways))
+        if len(li) == 1:
+            return li[0]
+        return self.merge_all(self.merge_pass(li))
 
-    def natural_partition(self, l: list, li_partitions: Union[list, None] = None):
+    def merge_pass(self, li: list) -> list:
+        """
+        Make one merge pass of adjacent sublist pairs, triples, or quadruples.
+        :param li: Partitioned list to merge
+        :return: Partially- or fully-merged list
+        """
+        sorted_li = []
+        while len(li) > 0:
+            if len(li) == 1:
+                self.n_exchanges += 1
+                l1 = li.pop(0)
+                sorted_li.append(l1)
+            else:
+                l1 = li.pop(0)
+                l2 = li.pop(0)
+                if (self.way in [2, "natural"]) or (len(li) == 0):
+                    self.n_exchanges += 2
+                    sorted_li.append(self.two_way_merge(l1, l2))
+                else:
+                    l3 = li.pop(0)
+                    if (self.way == 3) or (len(li) == 0):
+                        self.n_exchanges += 3
+                        sorted_li.append(self.three_way_merge(l1, l2, l3))
+                    else:
+                        self.n_exchanges += 4
+                        l4 = li.pop(0)
+                        sorted_li.append(self.four_way_merge(l1, l2, l3, l4))
+
+        return sorted_li
+
+    def natural_partition(self, unsorted_li: list, partitioned_li: Union[list, None] = None):
         """
         Recursively execute natural partitioning.
-        l: List to perform natural partition on
+        unsorted_li: List to perform natural partition on
         """
-        if li_partitions is None:
-            li_partitions = []
-        if len(l) == 0:
-            return li_partitions
+        if partitioned_li is None:
+            partitioned_li = []
+        if len(unsorted_li) == 0:
+            return partitioned_li
         else:
-            i = l.pop(0)
-            # Append first item to li_partitions if li_partitions is empty
-            if len(li_partitions) == 0:
-                li_partitions.append([i])
+            i = unsorted_li.pop(0)
+            # Append first item to partitioned_li if partitioned_li is empty
+            if len(partitioned_li) == 0:
+                partitioned_li.append([i])
             else:
-                # If i >= to its predecessor, append to last sublist of li_partitions
-                if i >= li_partitions[-1][-1]:
-                    li_partitions[-1].append(i)
-                # Otherwise, create new sublist in li_partitions and append to that
+                # If i >= to its predecessor, append to last sublist of partitioned_li
+                if i >= partitioned_li[-1][-1]:
+                    self.n_comparisons += 1
+                    partitioned_li[-1].append(i)
+                # Otherwise, create new sublist in partitioned_li and append to that
                 else:
-                    li_partitions.append([i])
+                    partitioned_li.append([i])
             self.n_partition_calls += 1
-            return self.natural_partition(l)
+            return self.natural_partition(unsorted_li)
 
-    def partition(self, l: list, partitioned_l: Union[list, None] = None) -> list:
+    def partition(self, unsorted_li, partitioned_li: Union[list, None] = None) -> list:
         """
         Recursively partition a list.
-        :param l: List to partition
-        :param partitioned_l: List to add partitions to
-        :return: Fully-partitioned partitioned list
+        :param unsorted_li: List to be partitioned
+        :param partitioned_li: List to add partitions to
+        :return: Fully-partitioned list
         """
-        if partitioned_l is None:
-            partitioned_l = []
-        if len(l) == 0:
-            return partitioned_l
+        if partitioned_li is None:
+            partitioned_li = []
+        if len(unsorted_li) == 0:
+            return partitioned_li
 
-        if len(l) == 1:
-            return partitioned_l + [l]
+        if len(unsorted_li) == 1:
+            return partitioned_li + [unsorted_li]
         else:
-            partitioned_l.append([l.pop(0)])
+            partitioned_li.append([unsorted_li.pop(0)])
             self.n_partition_calls += 1
-            return self.partition(l, partitioned_l)
+            return self.partition(unsorted_li, partitioned_li)
 
     def four_way_merge(self, l1: list, l2: list, l3: list, l4: list) -> list:
         """
@@ -266,7 +280,7 @@ class MergeSort:
 
         return li_merge + l1 + l2
 
-    def stop(self):
+    def stop_timer(self):
         """
         Stop timer and compute elapsed time
         :return: None

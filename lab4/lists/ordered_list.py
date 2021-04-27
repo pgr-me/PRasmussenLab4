@@ -11,8 +11,11 @@ import random
 
 # Local imports
 from lab4.lists.base_list import ListError, BaseList
-from lab4.sorts.heap_sort import heap_sort
+from lab4.sorts.heap_sort import HeapSort
+from lab4.sorts.merge_sort import MergeSort
 
+class OrderedListError(Exception):
+    pass
 
 class OrderedList(BaseList):
     """
@@ -23,6 +26,16 @@ class OrderedList(BaseList):
     def __init__(self, max_size: int, dup_frac=0):
         """Initialize an empty list"""
         super().__init__(max_size, dup_frac)
+
+    def copy(self):
+        """
+        Make a deep copy of the list.
+        :return: Deep copy of list
+        """
+        li = OrderedList(self.max_size, self.dup_frac)
+        for item in self:
+            li.append(item)
+        return li
 
     def randomize(self) -> OrderedList:
         """
@@ -54,11 +67,15 @@ class OrderedList(BaseList):
             ix1 += 1
         return self
 
-    def sort(self) -> OrderedList:
+    def sort(self, sort="heap_sort") -> OrderedList:
         """
         Sort list in-order.
         :return: In-order list
         """
-        heap_sort(self)
-        print(type(self))
+        if sort == "heap_sort":
+            heap_sort(self)
+
+        else:
+            raise OrderedListError(f"{sort} not among accepted sorts.")
+
         return self
