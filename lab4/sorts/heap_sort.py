@@ -1,4 +1,4 @@
-"""Peter Rasmussen, Lab 4, heap_sort.py
+"""Peter Rasmussen, Lab 4, sorts/heap_sort.py
 
 This module implements a recursive version of the heapify and heap sort methods.
 
