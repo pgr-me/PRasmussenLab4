@@ -1,6 +1,6 @@
-"""Peter Rasmussen, Lab 3, write_headers.py
+"""Peter Rasmussen, Lab 4, file_io/write_headers.py
 
-This module provides file IO functions.
+This module provides functions that write output headers and footers.
 
 """
 
