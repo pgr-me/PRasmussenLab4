@@ -118,7 +118,7 @@ class MergeSort:
                 else:
                     partitioned_li.append([i])
             self.n_partition_calls += 1
-            return self.natural_partition(unsorted_li)
+            return self.natural_partition(unsorted_li, partitioned_li)
 
     def partition(self, unsorted_li, partitioned_li: Union[list, None] = None) -> list:
         """
