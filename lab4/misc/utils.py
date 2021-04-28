@@ -1,4 +1,4 @@
-"""Peter Rasmussen, Lab 3, utils.py
+"""Peter Rasmussen, Lab 4, misc/utils.py
 
 This module provides miscellaneous utility functions used by other modules.
 
