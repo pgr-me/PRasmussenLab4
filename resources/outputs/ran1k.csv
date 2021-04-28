@@ -9,7 +9,7 @@ n,1000,1000,1000,1000,1000,1000
 n_comparisons,N/A,31285,8732,19680,30149,8801
 n_exchanges,N/A,9062,6265,5073,4651,5214
 n_partition_calls,N/A,0,999,999,999,1000
-elapsed_ns,N/A,20820000,16293000,15140000,14239000,13948000
+elapsed_ns,N/A,24232000,15710000,16129000,18640000,18450000
 ,,,,,,
 ix,unsorted,heap_sort,two_way_merge,three_way_merge,four_way_merge,natural_merge
 0,791,1,1,1,1,1
