@@ -1,7 +1,7 @@
 # Peter Rasmussen, Lab 4
 
-This Python package sorts one or more data files using straight merge and heap sort approaches and 
-writes outputs to CSV.
+This Python package sorts one or more data files using recursive implementations of straight merge,
+natural merge, and heap sort algorithms and writes outputs to CSV.
 
 ## Getting Started
 
@@ -11,7 +11,7 @@ below.
 
 To process one file, specify the input and output file paths.
 ```shell
-python -m path/to/lab4 -i path/to/in_file.dat -o path/to/eval_infile.txt 
+python -m path/to/lab4 -i path/to/in_file.dat -o path/to/out_file.csv 
 ```
 
 To process a directory of data files, specify the input and output directory paths.
