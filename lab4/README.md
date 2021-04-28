@@ -48,6 +48,7 @@ Optional arguments:
 * Option to process one file at a time or in bulk.
 * Recursive implementation of each sort algorithm to enable apples-to-apples performance
   comparisons.
+* Using the 25 input files and five sorts, the user can execute 125 runs in one go.
 
 ## Input and Output Files
 

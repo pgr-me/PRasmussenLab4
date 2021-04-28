@@ -98,10 +98,16 @@ def run(
 
             # Create data table
             csv_li.append(["ix"] + column_names)
+            counter = 0
             for ix, value in enumerate(data_dict["unsorted"]):
                 li = [ix, value] + [sort_dict["sorted"][ix] for sort_name, sort_dict in
                                     data_dict.items() if sort_name != "unsorted"]
                 csv_li.append(li)
+                counter += 1
+
+                # We don't need to write all the rows
+                if counter >= 50:
+                    break
 
             # Write outputs to CSV
             with open(str(dst), "w") as f:
