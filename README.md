@@ -54,6 +54,19 @@ Optional arguments:
 The ```resources/inputs``` directory contains the set of input files. Pre-processed outputs are in
 the ```resources/outputs``` directory.
 
+## Pre-sorts
+This program has been tested using in-order, reverse-ordered, and randomly-ordered lists. List 
+"pre-sorts" are available in the ```resources/inputs``` directory. For each pre-sort, there are
+pre-tested file sizes of 50, 500, 1,000, 5,000, and 10,000 integers. The randomly-ordered set of
+lists includes one set without duplicates and one with 20% duplicates. The other pre-sorts -
+in-order and reverse-ordered - have zero duplicates.
+
+We use the following file prefixes to identify the list presort:
+* In-order: asc
+* Reverse-ordered: rev
+* Randomly-ordered: ran
+* Randomly-ordered (20% duplicates): dup
+
 ## Example Output File
 
 An example of the metrics portion of the output for asc5.csv is shown below.
