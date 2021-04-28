@@ -1,7 +1,7 @@
-"""Peter Rasmussen, Lab 3, run.py
+"""Peter Rasmussen, Lab 4, run.py
 
-This module processes a polynomial expressions file and a corresponding variable-value evaluation
-file to symbolically combine and then evaluate polynomial expressions.
+This module processes a reads a file or directory of files containing integers, executes five
+recursive sorting algorithms, and an output CSV for each input file.
 
 """
 

@@ -1,7 +1,6 @@
-"""Peter Rasmussen, Lab 3, lists/array.py
+"""Peter Rasmussen, Lab 4, lists/base_list.py
 
-This module provides a simple Array class which the parse_evaluation_input uses to store variable-
-value lists.
+This module provides a base list class which the ordered_list class inherits.
 
 """
 

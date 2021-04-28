@@ -1,7 +1,8 @@
-"""Peter Rasmussen, Lab 4, datamaker/datamaker.py
+"""Peter Rasmussen, Lab 4, lists/ordered_list.py
 
-This module provides a simple Array class which the parse_evaluation_input uses to store variable-
-value lists.
+This module provides a an ordered list class which the DataMaker class uses to create each input
+type. After writing this class, it became known that we could use Python's primitive list class, and
+every module besides the data_maker module uses the Python primitive list.
 
 """
 

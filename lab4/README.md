@@ -91,6 +91,19 @@ list and corresponding sorts shown).
 3|1997|4|4|4|4|4
 4|1996|5|5|5|5|5
 
+## Sources
+
+The heapify and sort methods are adapted from the following source.
+    
+    Kumra, Mohit. "HeapSort". GeeksforGeeks, https://www.geeksforgeeks.org/heap-sort/.
+    Accessed 23 April 2021.
+
+A memoization routine, which ultimately was not included in the final version of the program, was obtained from the following source.
+
+    Class obtained from source cited below.
+    “Python - anyone have a memoizing decorator that can handle unhashable arguments?" Stack Overflow, 26 April 2021,
+    https://stackoverflow.com/questions/4669391/python-anyone-have-a-memoizing-decorator-that-can-handle-unhashable-arguments
+
 ## Licensing
 
 This project is licensed under the MIT license.
