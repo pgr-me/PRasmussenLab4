@@ -56,46 +56,27 @@ the ```resources/outputs``` directory.
 
 ## Example Output File
 
-An example of the output is shown below.
+An example of the metrics portion of the output for asc5.csv is shown below.
 
-| metric  | unsorted  | two_way_merge  | three_way_merge  | four_way_merge  | heap_sort  |
-|---|---|---|---|---|---|
-|   |   |   |   |   |   |
-|   |   |   |   |   |   |
-|   |   |   |   |   |   |
+**metric**|**unsorted**|**heap\_sort**|**two\_way\_merge**|**three\_way\_merge**|**four\_way\_merge**|**natural\_merge**
+:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:
+n|2000|2000|2000|2000|2000|2000
+n\_comparisons|N/A|64277|10864|31060|47704|10864
+n\_exchanges|N/A|18708|14864|12162|11107|14864
+n\_partition\_calls|N/A|0|1999|1999|1999|2000
+elapsed\_ns|N/A|50141000|36241000|31427000|27518000|36522000
 
-Outputs are organized by operation (e.g., A+B). For each operation, the input polynomial expression
 
-is echoed and the output expression (e.g., result of A+B) is one line below. A simple table
-summarizes the evaluated answer alongside the evaluation set (e.g., x1y2z3). Below the polynomial
-expression operation and evaluation outputs is total runtime.
+Beneath the metrics table is the side-by-side unsorted and sorted lists (2000-item reverse order
+list and corresponding sorts shown).
 
-Example output file:
-
-    # Peter Rasmussen, Lab 3
-    # Polynomial simplification and evaluation
-    # Input files:
-    #	/Users/peter/PycharmProjects/PRasmussenLab3/resources/additional_polynomial_input_04.txt
-    #	/Users/peter/PycharmProjects/PRasmussenLab3/resources/additional_evaluation_input_02.txt
-    # Output file: /Users/peter/PycharmProjects/PRasmussenLab3/resources/additional_output_04_02.txt
-
-    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    Polynomial input expression definitions
-    A = 31a3b4c3d4e1+11a4b1c0d0e0-1a4b1c3d3e3-13a2b3c2d4e0+24a1b3c4d4e3
-    B = 7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3
-    C = a2b1c3d1e1-10a2b1c0d3e4+23a4b2c2d3e2+16a0b2c2d3e2-5a2b1c1d1e2
-    D = 4a3b1c0d1e2+24a4b4c2d0e2+28a2b3c2d1e0+18a1b3c0d2e1-16a1b4c4d0e2
-    A+B
-    Input:	(31a3b4c3d4e1+11a4b1c0d0e0-1a4b1c3d3e3-13a2b3c2d4e0+24a1b3c4d4e3)+(7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3)
-    Output:	31a3b4c3d4e1+11a4b1c0d0e0-1a4b1c3d3e3-13a2b3c2d4e0+24a1b3c4d4e3+7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3
-    Evaluation Set			Answer
-    a0b4c1d5e4				0
-    a2b3c5d0e1				-64772
-
-    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    # Peter Rasmussen, Lab 3
-    # Input file: /Users/peter/PycharmProjects/PRasmussenlab3/resources/additional_input.txt
-    # Output file: /Users/peter/PycharmProjects/PRasmussenlab3/resources/additional_output.txt
+**ix**|**unsorted**|**heap\_sort**|**two\_way\_merge**|**three\_way\_merge**|**four\_way\_merge**|**natural\_merge**
+:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:
+0|2000|1|1|1|1|1
+1|1999|2|2|2|2|2
+2|1998|3|3|3|3|3
+3|1997|4|4|4|4|4
+4|1996|5|5|5|5|5
 
 ## Licensing
 
