@@ -52,9 +52,13 @@ executed as a standalone program."
 # standard library imports
 import argparse
 from pathlib import Path
+import sys
 
 # local imports
 from lab4.run import run
+
+
+sys.setrecursionlimit(20000)
 
 
 # Parse arguments
@@ -74,7 +78,7 @@ parser.add_argument(
 parser.add_argument(
     "--file_header",
     "-f",
-    default="Peter Rasmussen, Lab 4",
+    default="Peter Rasmussen: Lab 4",
     type=str,
     help="Specify file header",
 )

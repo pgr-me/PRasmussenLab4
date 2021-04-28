@@ -9,7 +9,6 @@ file to symbolically combine and then evaluate polynomial expressions.
 import csv
 from copy import deepcopy
 from pathlib import Path
-import sys
 from time import time_ns
 
 # local imports
@@ -17,8 +16,6 @@ from lab4.datamaker.make_data import make_data
 from lab4.file_io import FileIO, make_header
 from lab4.sorts import HeapSort
 from lab4.sorts import MergeSort
-
-sys.setrecursionlimit(12000)
 
 
 def run(
@@ -45,6 +42,7 @@ def run(
                    "two_way_merge": {"sort_class": MergeSort, "kwargs": {"way": 2}},
                    "three_way_merge": {"sort_class": MergeSort, "kwargs": {"way": 3}},
                    "four_way_merge": {"sort_class": MergeSort, "kwargs": {"way": 4}},
+                   "natural_merge": {"sort_class": MergeSort, "kwargs": {"way": "natural"}},
                    }
 
         file_io = FileIO(in_path, out_path)
@@ -54,10 +52,12 @@ def run(
 
         # Iterate over each dataset
         for dataset_name, dataset in datasets.items():
+            print(f"Dataset: {dataset_name}")
             data_dict = {"unsorted": dataset}
 
             # Iterate over each sorter (e.g., 2-way merge sort, natural merge, etc.)
             for sort_name, sorter_di in sorters.items():
+                print(f"\tSort: {sort_name}")
                 # Extract dictionary arguments, instantiate sorter, and sort list
                 sorter_class, kwargs = sorter_di["sort_class"], sorter_di["kwargs"]
                 sorter = sorter_class(deepcopy(dataset), **kwargs)
@@ -86,7 +86,7 @@ def run(
             csv_li: list = [["metric"] + column_names]
 
             # Metrics table: Add number of comparisons, exchanges, and partition calls
-            for metric in ["n", "n_comparisons", "n_exchanges", "n_partition_calls"]:
+            for metric in ["n", "n_comparisons", "n_exchanges", "n_partition_calls", "elapsed_ns"]:
                 li = [di[metric] for k, di in data_dict.items() if k != "unsorted"]
                 if metric == "n":
                     metric_li = [metric, len(dataset)] + li
@@ -102,6 +102,8 @@ def run(
                 li = [ix, value] + [sort_dict["sorted"][ix] for sort_name, sort_dict in
                                     data_dict.items() if sort_name != "unsorted"]
                 csv_li.append(li)
+
+            # Write outputs to CSV
             with open(str(dst), "w") as f:
                 f.write(file_header_)
                 writer = csv.writer(f)
