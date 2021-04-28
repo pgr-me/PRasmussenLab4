@@ -1,6 +1,6 @@
 """Peter Rasmussen, Lab 4, parsers/file_io.py
 
-This module reads an input file and organizes its contents as integers into an OrderedList.
+This module reads an input file and organizes its contents into a dictionary of lists.
 """
 
 # standard library imports
@@ -15,7 +15,7 @@ class ReadDatasetError(Exception):
 class FileIO:
     """Handles reading inputs and writing outputs."""
 
-    def __init__(self, in_path: Path, out_path: Path, datafile_ext=".dat"):
+    def __init__(self, in_path: Path, out_path: Path):
         self.in_path = Path(in_path)
         self.out_path = Path(out_path)
 
@@ -34,7 +34,6 @@ class FileIO:
     def read_input(self) -> dict:
         """
         Read a file or directory and return a dictionary of one or more datasets.
-        :param in_path: Input file or directory path
         :return: Dictionary of one or more datasets keyed on file stem
         """
         if self.in_path.is_file():
@@ -51,7 +50,7 @@ class FileIO:
         """
         pass
 
-    def create_out_filename(self, dataset_key: str)->Path:
+    def create_out_filename(self, dataset_key: str) -> Path:
         """
         Create output filename.
         :param dataset_key: Name of dataset (e.g., ran1k)
